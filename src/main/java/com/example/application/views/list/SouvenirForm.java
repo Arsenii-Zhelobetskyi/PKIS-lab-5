@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -13,30 +14,25 @@ import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.List;
 
-public class ContactForm extends FormLayout {
-    TextField firstName = new TextField("First name");
-    TextField lastName = new TextField("Last name");
-    EmailField email = new EmailField("Email");
-    ComboBox<Status> status = new ComboBox<>("Status");
-    ComboBox<Company> company = new ComboBox<>("Company");
+public class SouvenirForm extends FormLayout {
+    TextField name = new TextField("Souvenir name");
+    ComboBox<Status> manufacturer_s_details = new ComboBox<>("Select manufacturer");
+    DatePicker date = new DatePicker("Date of production");
+    EmailField price = new EmailField("Price of the souvenir");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
-    public ContactForm(List<Company> companies, List<Status> statuses) {
-        addClassName("contact-form");
+    public SouvenirForm(List<Status> statuses) {
+        addClassName("souvenir-form");
+        manufacturer_s_details.setItems(statuses);
+        manufacturer_s_details.setItemLabelGenerator(Status::getName);
 
-        company.setItems(companies);
-        company.setItemLabelGenerator(Company::getName);
-        status.setItems(statuses);
-        status.setItemLabelGenerator(Status::getName);
-
-        add(firstName,
-                lastName,
-                email,
-                company,
-                status,
+        add(name,
+                date,
+                price,
+                manufacturer_s_details,
                 createButtonsLayout());
     }
 

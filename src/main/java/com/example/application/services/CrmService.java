@@ -1,10 +1,10 @@
 package com.example.application.services;
 
 import com.example.application.data.Company;
-import com.example.application.data.Contact;
+import com.example.application.data.Souvenirs;
 import com.example.application.data.Status;
 import com.example.application.data.CompanyRepository;
-import com.example.application.data.ContactRepository;
+import com.example.application.data.SouvenirsRepository;
 import com.example.application.data.StatusRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,40 +13,41 @@ import java.util.List;
 @Service
 public class CrmService {
 
-    private final ContactRepository contactRepository;
+    private final SouvenirsRepository souvenirsRepository;
     private final CompanyRepository companyRepository;
     private final StatusRepository statusRepository;
 
-    public CrmService(ContactRepository contactRepository,
+    public CrmService(SouvenirsRepository souvenirsRepository,
                       CompanyRepository companyRepository,
                       StatusRepository statusRepository) {
-        this.contactRepository = contactRepository;
+        this.souvenirsRepository = souvenirsRepository;
         this.companyRepository = companyRepository;
         this.statusRepository = statusRepository;
     }
 
-    public List<Contact> findAllContacts(String stringFilter) {
+    public List<Souvenirs> findAllContacts(String stringFilter) {
         if (stringFilter == null || stringFilter.isEmpty()) {
-            return contactRepository.findAll();
+            return souvenirsRepository.findAll();
         } else {
-            return contactRepository.search(stringFilter);
+//            return souvenirsRepository.search(stringFilter);
+            return souvenirsRepository.findAll();
         }
     }
 
     public long countContacts() {
-        return contactRepository.count();
+        return souvenirsRepository.count();
     }
 
-    public void deleteContact(Contact contact) {
-        contactRepository.delete(contact);
+    public void deleteContact(Souvenirs souvenirs) {
+        souvenirsRepository.delete(souvenirs);
     }
 
-    public void saveContact(Contact contact) {
-        if (contact == null) {
+    public void saveContact(Souvenirs souvenirs) {
+        if (souvenirs == null) {
             System.err.println("Contact is null. Are you sure you have connected your form to the application?");
             return;
         }
-        contactRepository.save(contact);
+        souvenirsRepository.save(souvenirs);
     }
 
     public List<Company> findAllCompanies() {

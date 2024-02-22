@@ -1,6 +1,6 @@
 package com.example.application.views.list;
 
-import com.example.application.data.Contact;
+import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -15,17 +15,16 @@ import com.vaadin.flow.router.Route;
 import java.util.Collections;
 
 @Route(value = "")
-@PageTitle("Contacts | Vaadin CRM")
+@PageTitle("Souvenirs")
 public class ListView extends VerticalLayout {
-    Grid<Contact> grid = new Grid<>(Contact.class);
+    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class);
     TextField filterText = new TextField();
-    ContactForm form;
+    SouvenirForm form;
     CrmService service;
 
 
     public ListView(CrmService service) {
         this.service = service;
-
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -43,16 +42,16 @@ public class ListView extends VerticalLayout {
         content.setSizeFull();
         return content;
     }
+
     private void configureForm() {
-        form = new ContactForm(Collections.emptyList(), Collections.emptyList());
+        form = new SouvenirForm(Collections.emptyList());
         form.setWidth("25em");
     }
+
     private void configureGrid() {
-        grid.addClassNames("contact-grid");
+        grid.addClassNames("souvenirs-grid");
         grid.setSizeFull();
-        grid.setColumns("firstName", "lastName", "email");
-        grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
-        grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
+        grid.setColumns("id", "name", "manufacturer_s_details", "date", "price");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
@@ -68,6 +67,7 @@ public class ListView extends VerticalLayout {
         toolbar.addClassName("toolbar");
         return toolbar;
     }
+
     private void updateList() {
         grid.setItems(service.findAllContacts(filterText.getValue()));
     }
