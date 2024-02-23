@@ -1,5 +1,7 @@
 package com.example.application.services;
 
+import com.example.application.data.Manufacturers;
+import com.example.application.data.ManufacturersRepository;
 import com.example.application.data.Souvenirs;
 import com.example.application.data.SouvenirsRepository;
 import org.springframework.stereotype.Service;
@@ -14,18 +16,36 @@ import java.util.List;
 public class CrmService {
 
     private final SouvenirsRepository souvenirsRepository;  // репозиторій для доступу до даних про сувеніри
+    private final ManufacturersRepository manufacturersRepository;  // репозиторій для доступу до даних про сувеніри
 
 
-    public CrmService(SouvenirsRepository souvenirsRepository) { // конструктор класу
+    public CrmService(SouvenirsRepository souvenirsRepository, ManufacturersRepository manufacturersRepository ) { // конструктор класу
         this.souvenirsRepository = souvenirsRepository; // ініціалізація репозиторію
+        this.manufacturersRepository = manufacturersRepository; // ініціалізація репозиторію
         // Отже, ми можемо використовувати CrmService у своєму додатку, не створюючи об'єкт вручну.
         // Spring буде автоматично створювати екземпляр CrmService та передавати в нього необхідні залежності,
         // такі як SouvenirsRepository.
     }
 
 
+    // MANUFACTURERS
 
 
+
+    public List<Manufacturers> findAllManufacturers(String stringFilter) { // метод для пошуку всіх виробників
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return manufacturersRepository.findAll();
+        } else {
+            return manufacturersRepository.search(stringFilter);
+        }
+    }
+
+
+
+    // SOUVENIRS
+    public long countSouvenirs() { // метод для підрахунку кількості сувенірів
+        return souvenirsRepository.count();
+    }
 
     public List<Souvenirs> findAllSouvenirs(String stringFilter) { // метод для пошуку всіх сувенірів
         if (stringFilter == null || stringFilter.isEmpty()) {
