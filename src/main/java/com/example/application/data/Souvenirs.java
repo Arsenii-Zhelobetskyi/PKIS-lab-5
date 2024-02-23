@@ -11,22 +11,21 @@ import org.hibernate.annotations.UuidGenerator;
 import java.time.LocalDate;
 import java.util.Date;
 
+
+/**
+ * Сутність Souvenirs. Цей клас описує сутність Souvenirs, яка зберігається в базі даних. Кожен екземпляр цього класу відповідає одному рядку в таблиці бази даних.
+ */
 @Entity
 public class Souvenirs extends AbstractEntity {
-
-
-    @NotEmpty
-    private String name = "";
-
-
-    private String manufacturer_s_details = "";
-
+    @NotEmpty // потрібно для валідації даних
+    private String name; // назва сувеніру
+    private String manufacturer_s_details = "Unknown"; // деталі виробника, по факту його id
     @NotNull
-    private LocalDate date;
-
+    private LocalDate date; // дата виготовлення
     @NotNull
-    private double price;
+    private double price; // ціна сувеніру
 
+    // далі йдуть гетери та сетери для полів класу. Їх використовує JPA для роботи з базою даних
     public String getName() {
         return name;
     }

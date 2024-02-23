@@ -2,7 +2,6 @@ package com.example.application.views.list;
 
 import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -12,30 +11,32 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.util.Collections;
 
+/**
+ * цей клас відображає список сувенірів у вигляді таблиці
+ */
 @Route(value = "")
 @PageTitle("Souvenirs")
 public class ListView extends VerticalLayout {
-    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class);
-    TextField filterText = new TextField();
-    SouvenirForm form;
-    CrmService service;
+    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
+    TextField filterText = new TextField(); // поле для фільтрації сувенірів
+    SouvenirForm form; // форма для редагування сувенірів
+    CrmService service; // сервіс для роботи з базою даних
 
 
-    public ListView(CrmService service) {
+    public ListView(CrmService service) { // конструктор класу
         this.service = service;
         addClassName("list-view");
-        setSizeFull();
-        configureGrid();
-        configureForm();
+        setSizeFull(); // встановлюємо розмір вікна на весь екран
+        configureGrid(); // налаштовуємо таблицю
+        configureForm(); // налаштовуємо форму
 
-        add(getToolbar(), getContent());
-        updateList();
-        closeEditor();
+        add(getToolbar(), getContent()); // додаємо панель інструментів та контент на форму
+        updateList(); // оновлюємо список сувенірів
+        closeEditor(); // закриваємо редактор
     }
 
-    private HorizontalLayout getContent() {
+    private HorizontalLayout getContent() { // метод для отримання контенту
         HorizontalLayout content = new HorizontalLayout(grid, form);
         content.setFlexGrow(2, grid);
         content.setFlexGrow(1, form);
@@ -44,26 +45,25 @@ public class ListView extends VerticalLayout {
         return content;
     }
 
-    private void configureForm() {
-//        form = new SouvenirForm(Collections.emptyList());
+    private void configureForm() { // метод для налаштування форми
         form = new SouvenirForm();
         form.setWidth("25em");
         form.addSaveListener(this::saveSouvenir);
-        form.addDeleteListener(this::deleteContact);
+        form.addDeleteListener(this::deleteSouvenir);
         form.addCloseListener(e -> closeEditor());
     }
-    private void saveSouvenir(SouvenirForm.SaveEvent event) {
+    private void saveSouvenir(SouvenirForm.SaveEvent event) {  // метод для збереження сувеніру
         service.saveSouvenir(event.getSouvenir());
         updateList();
         closeEditor();
     }
 
-    private void deleteContact(SouvenirForm.DeleteEvent event) {
+    private void deleteSouvenir(SouvenirForm.DeleteEvent event) { // метод для видалення сувеніру
         service.deleteSouvenir(event.getSouvenir());
         updateList();
         closeEditor();
     }
-    private void configureGrid() {
+    private void configureGrid() { // метод для налаштування таблиці
         grid.addClassNames("souvenirs-grid");
         grid.setSizeFull();
         grid.setColumns("id", "name", "manufacturer_s_details", "date", "price");
@@ -73,19 +73,19 @@ public class ListView extends VerticalLayout {
                 editSouvenir(event.getValue()));
     }
 
-    private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filter by name...");
+    private HorizontalLayout getToolbar() { // метод для отримання панелі інструментів
+        filterText.setPlaceholder("Find souvenir by name...");
         filterText.setClearButtonVisible(true);
-        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY); // затримка перед викликом події
         filterText.addValueChangeListener(e -> updateList());
-        Button addContactButton = new Button("Add contact");
+        Button addContactButton = new Button("Add souvenir");
         addContactButton.addClickListener(click -> addSouvenir());
 
         var toolbar = new HorizontalLayout(filterText, addContactButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
-    public void editSouvenir(Souvenirs souvenir) {
+    public void editSouvenir(Souvenirs souvenir) { // метод для редагування сувеніру
         if (souvenir == null) {
             closeEditor();
         } else {
@@ -94,16 +94,16 @@ public class ListView extends VerticalLayout {
             addClassName("editing");
         }
     }
-    private void closeEditor() {
+    private void closeEditor() { // метод для закриття редактора
         form.setSouvenir(null);
         form.setVisible(false);
         removeClassName("editing");
     }
-    private void addSouvenir() {
+    private void addSouvenir() { // метод для додавання сувеніру
         grid.asSingleSelect().clear();
         editSouvenir(new Souvenirs());
     }
-    private void updateList() {
-        grid.setItems(service.findAllContacts(filterText.getValue()));
+    private void updateList() { // метод для оновлення списку сувенірів
+        grid.setItems(service.findAllSouvenirs(filterText.getValue()));
     }
 }

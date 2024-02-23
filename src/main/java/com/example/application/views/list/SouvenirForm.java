@@ -23,37 +23,41 @@ import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
 
+/**
+ * Форма для редагування сувенірів. Цей клас використовується для відображення форми для редагування сувенірів.
+ * Вона містить поля для введення даних про сувенір, такі як назва, виробник, дата виготовлення та ціна.
+ * Також вона містить кнопки для збереження, видалення та закриття форми.
+ * <p>
+ * Ця форма автоматично валідує введені дані та відображає помилки, якщо такі є. Та також вона автоматично зберігає введені дані в об'єкт Souvenirs.
+ */
 public class SouvenirForm extends FormLayout {
-
-
     TextField name = new TextField("Souvenir name");
-//    ComboBox<Status> manufacturer_s_details = new ComboBox<>("Select manufacturer");
     TextField manufacturer_s_details = new TextField("Manufacturer details");
-//    DatePicker date = new DatePicker("Date of production");
+
     DatePicker date = new DatePicker("Date of production");
     NumberField price = new NumberField("Price of the souvenir");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-    Binder<Souvenirs> binder = new BeanValidationBinder<>(Souvenirs.class);
+    Binder<Souvenirs> binder = new BeanValidationBinder<>(Souvenirs.class); // біндер для автоматичної валідації та збереження даних
 
     public SouvenirForm() {
         addClassName("souvenir-form");
-        binder.bindInstanceFields(this);
+        binder.bindInstanceFields(this); // біндер автоматично зв'язує поля форми з полями класу Souvenirs
 
 
+        // Встановлюємо плейсхолдери для полів вводу
         name.setPlaceholder("Alaska magnet");
         manufacturer_s_details.setPlaceholder("Alaska souvenirs id");
         date.setPlaceholder("2021-01-01");
         price.setPlaceholder("100");
+
         // Додамо значок долара перед полем вводу ціни
         Div dollarPrefix= new Div();
         dollarPrefix.setText("$");
         price.setPrefixComponent(dollarPrefix);
 
-//        manufacturer_s_details.setItems(statuses);
-//        manufacturer_s_details.setItemLabelGenerator(Status::getName);
 
         add(name,
                 date,
@@ -71,16 +75,18 @@ public class SouvenirForm extends FormLayout {
         close.addClickShortcut(Key.ESCAPE);
 
         save.addClickListener(event -> validateAndSave());
+
+        // this: Це посилання на поточний об'єкт SouvenirForm, з якого відбувається відправка події.
+        // binder.getBean(): Це об'єкт даних, який був зв'язаний з формою через binder. Він представляє дані, які були введені користувачем у форму.
         delete.addClickListener(event -> fireEvent(new DeleteEvent(this, binder.getBean())));
+
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
         return new HorizontalLayout(save, delete, close);
     }
 
-
-
-    private void validateAndSave() {
+    private void validateAndSave() { // метод для валідації та збереження даних
         if(binder.isValid()) {
             fireEvent(new SaveEvent(this, binder.getBean()));
         }
@@ -89,53 +95,53 @@ public class SouvenirForm extends FormLayout {
 
     public void setSouvenir(Souvenirs souvenir) {
         binder.setBean(souvenir);
-    }
+    }  // метод для встановлення сувеніру, який буде відображатися в формі, при її відкритті
 
     // Events
-    public static abstract class SouvenirFormEvent extends ComponentEvent<SouvenirForm> {
+    public static abstract class SouvenirFormEvent extends ComponentEvent<SouvenirForm> { // абстрактний клас для подій форми, конвенція
         private Souvenirs souvenir;
 
-        protected SouvenirFormEvent(SouvenirForm source, Souvenirs souvenir) {
+        protected SouvenirFormEvent(SouvenirForm source, Souvenirs souvenir) { // конструктор класу
             super(source, false);
             this.souvenir = souvenir;
         }
 
         public Souvenirs getSouvenir() {
             return souvenir;
+        } // метод для отримання сувеніру, який був відредагований
+    }
+
+    public static class SaveEvent extends SouvenirFormEvent { // клас для події збереження
+        SaveEvent(SouvenirForm source, Souvenirs souvenir) {
+            super(source, souvenir);
         }
     }
 
-    public static class SaveEvent extends SouvenirFormEvent {
-        SaveEvent(SouvenirForm source, Souvenirs contact) {
-            super(source, contact);
-        }
-    }
-
-    public static class DeleteEvent extends SouvenirFormEvent {
-        DeleteEvent(SouvenirForm source, Souvenirs contact) {
-            super(source, contact);
+    public static class DeleteEvent extends SouvenirFormEvent { // клас для події видалення
+        DeleteEvent(SouvenirForm source, Souvenirs souvenir) {
+            super(source, souvenir);
         }
 
     }
 
-    public static class CloseEvent extends SouvenirFormEvent {
+    public static class CloseEvent extends SouvenirFormEvent {  // клас для події закриття
         CloseEvent(SouvenirForm source) {
             super(source, null);
         }
     }
 
-    public Registration addDeleteListener(ComponentEventListener<DeleteEvent> listener) {
+    public Registration addDeleteListener(ComponentEventListener<DeleteEvent> listener) { // метод для додавання слухача події видалення
         return addListener(DeleteEvent.class, listener);
     }
 
-    public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {
+    public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) { // метод для додавання слухача події збереження
         return addListener(SaveEvent.class, listener);
     }
-    public Registration addCloseListener(ComponentEventListener<CloseEvent> listener) {
+    public Registration addCloseListener(ComponentEventListener<CloseEvent> listener) { // метод для додавання слухача події закриття
         return addListener(CloseEvent.class, listener);
     }
 
 }
 
 
-// Events
+
