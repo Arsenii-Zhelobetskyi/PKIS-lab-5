@@ -1,12 +1,9 @@
 package com.example.application.data;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -19,6 +16,8 @@ public abstract class AbstractEntity {
     private int version;
 
     public String getId() {
+
+
         return id;
     }
 
@@ -48,4 +47,9 @@ public abstract class AbstractEntity {
         }
         return super.equals(that);
     }
+//    @PrePersist
+//    public void generateId() {
+//        // Генерація 8-символьного UUID
+//        this.id = UUID.randomUUID().toString().substring(0, 8);
+//    }
 }

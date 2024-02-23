@@ -13,9 +13,6 @@ import java.util.Date;
 @Entity
 public class Souvenirs extends AbstractEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private String id;
 
     @NotEmpty
     private String name = "";
@@ -26,19 +23,8 @@ public class Souvenirs extends AbstractEntity {
     @NotEmpty
     private String date;
 
-
     @NotNull
     private double price;
-
-
-//    @Override
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
 
     public String getName() {
         return name;

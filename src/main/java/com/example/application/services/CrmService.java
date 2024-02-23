@@ -25,8 +25,8 @@ public class CrmService {
         if (stringFilter == null || stringFilter.isEmpty()) {
             return souvenirsRepository.findAll();
         } else {
-//            return souvenirsRepository.search(stringFilter);
-            return souvenirsRepository.findAll();
+            return souvenirsRepository.search(stringFilter);
+//            return souvenirsRepository.findAll(stringFilter);
         }
     }
     public void deleteSouvenir(Souvenirs souvenir) {
