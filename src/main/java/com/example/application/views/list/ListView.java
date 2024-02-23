@@ -2,6 +2,7 @@ package com.example.application.views.list;
 
 import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
+import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -15,7 +16,7 @@ import com.vaadin.flow.router.Route;
 /**
  * цей клас відображає список сувенірів у вигляді таблиці
  */
-@Route(value = "")
+@Route(value="", layout = MainLayout.class)
 @PageTitle("Souvenirs")
 public class ListView extends VerticalLayout {
     Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
