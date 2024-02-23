@@ -1,44 +1,44 @@
 package com.example.application.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Date;
 
 @Entity
 public class Souvenirs extends AbstractEntity {
 
-    @Id
-    @NotEmpty
-    private String id = "";
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private String id;
 
     @NotEmpty
     private String name = "";
-    @NotEmpty
+
+
     private String manufacturer_s_details = "";
 
     @NotEmpty
-    private Date date;
+    private String date;
 
 
     @NotNull
     private double price;
 
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+//    @Override
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -56,11 +56,11 @@ public class Souvenirs extends AbstractEntity {
         this.manufacturer_s_details = manufacturer_s_details;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

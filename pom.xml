@@ -8,6 +8,7 @@
     <name>flowcrmtutorial</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+<!--    <generated-value strategy="IDENTITY" />-->
 
     <properties>
         <java.version>17</java.version>
