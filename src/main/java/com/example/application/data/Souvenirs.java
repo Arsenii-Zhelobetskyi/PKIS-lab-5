@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,8 +21,8 @@ public class Souvenirs extends AbstractEntity {
 
     private String manufacturer_s_details = "";
 
-    @NotEmpty
-    private String date;
+    @NotNull
+    private LocalDate date;
 
     @NotNull
     private double price;
@@ -42,11 +43,11 @@ public class Souvenirs extends AbstractEntity {
         this.manufacturer_s_details = manufacturer_s_details;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

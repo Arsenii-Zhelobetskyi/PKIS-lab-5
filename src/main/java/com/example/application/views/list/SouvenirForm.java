@@ -11,6 +11,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -29,7 +30,7 @@ public class SouvenirForm extends FormLayout {
 //    ComboBox<Status> manufacturer_s_details = new ComboBox<>("Select manufacturer");
     TextField manufacturer_s_details = new TextField("Manufacturer details");
 //    DatePicker date = new DatePicker("Date of production");
-    TextField date = new TextField("Date of production");
+    DatePicker date = new DatePicker("Date of production");
     NumberField price = new NumberField("Price of the souvenir");
 
     Button save = new Button("Save");
@@ -40,6 +41,16 @@ public class SouvenirForm extends FormLayout {
     public SouvenirForm() {
         addClassName("souvenir-form");
         binder.bindInstanceFields(this);
+
+
+        name.setPlaceholder("Alaska magnet");
+        manufacturer_s_details.setPlaceholder("Alaska souvenirs id");
+        date.setPlaceholder("2021-01-01");
+        price.setPlaceholder("100");
+        // Додамо значок долара перед полем вводу ціни
+        Div dollarPrefix= new Div();
+        dollarPrefix.setText("$");
+        price.setPrefixComponent(dollarPrefix);
 
 //        manufacturer_s_details.setItems(statuses);
 //        manufacturer_s_details.setItemLabelGenerator(Status::getName);
