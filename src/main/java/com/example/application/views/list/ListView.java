@@ -15,14 +15,15 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import org.vaadin.klaudeta.PaginatedGrid;
+
 /**
  * цей клас відображає список сувенірів у вигляді таблиці
  */
-@Route(value="", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @PageTitle("Souvenirs")
 public class
 ListView extends VerticalLayout {
-//    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
+    //    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
     PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class);
     TextField filterText = new TextField(); // поле для фільтрації сувенірів
     SouvenirForm form; // форма для редагування сувенірів
@@ -42,7 +43,8 @@ ListView extends VerticalLayout {
     }
 
     private HorizontalLayout getContent() { // метод для отримання контенту
-        HorizontalLayout content = new HorizontalLayout(configureGrid(), form);
+
+        HorizontalLayout content = new HorizontalLayout(new VerticalLayout(grid), form);
         content.setFlexGrow(2, grid);
         content.setFlexGrow(1, form);
         content.addClassNames("content");
@@ -57,6 +59,7 @@ ListView extends VerticalLayout {
         form.addDeleteListener(this::deleteSouvenir);
         form.addCloseListener(e -> closeEditor());
     }
+
     private void saveSouvenir(SouvenirForm.SaveEvent event) {  // метод для збереження сувеніру
         service.saveSouvenir(event.getSouvenir());
         updateList();
@@ -68,22 +71,17 @@ ListView extends VerticalLayout {
         updateList();
         closeEditor();
     }
-    private VerticalLayout configureGrid() { // метод для налаштування таблиці
-        VerticalLayout content = new VerticalLayout(grid);
+
+    private void configureGrid() { // метод для налаштування таблиці
         grid.addClassNames("souvenirs-grid");
         grid.setSizeFull();
         grid.setColumns("id", "name", "manufacturer_s_details", "date", "price");
-//        grid.addColumn(Address::getId).setHeader("Name");
-
         grid.setPageSize(10);
         grid.setPaginatorSize(5);
-
-
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
-
         grid.asSingleSelect().addValueChangeListener(event ->
                 editSouvenir(event.getValue()));
-        return content;
+
     }
 
     private HorizontalLayout getToolbar() { // метод для отримання панелі інструментів
@@ -98,6 +96,7 @@ ListView extends VerticalLayout {
         toolbar.addClassName("toolbar");
         return toolbar;
     }
+
     public void editSouvenir(Souvenirs souvenir) { // метод для редагування сувеніру
         if (souvenir == null) {
             closeEditor();
@@ -107,15 +106,18 @@ ListView extends VerticalLayout {
             addClassName("editing");
         }
     }
+
     private void closeEditor() { // метод для закриття редактора
         form.setSouvenir(null);
         form.setVisible(false);
         removeClassName("editing");
     }
+
     private void addSouvenir() { // метод для додавання сувеніру
         grid.asSingleSelect().clear();
         editSouvenir(new Souvenirs());
     }
+
     private void updateList() { // метод для оновлення списку сувенірів
         grid.setItems(service.findAllSouvenirs(filterText.getValue()));
     }
