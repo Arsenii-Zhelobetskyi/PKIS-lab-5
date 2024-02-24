@@ -12,8 +12,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import     com.example.application.views.list.SouvenirForm;
+import com.example.application.views.list.SouvenirForm;
 import org.vaadin.klaudeta.PaginatedGrid;
+
 
 /**
  * цей клас відображає список сувенірів у вигляді таблиці
@@ -22,14 +23,13 @@ import org.vaadin.klaudeta.PaginatedGrid;
 @PageTitle("Souvenirs")
 public class
 SouvenirsView extends VerticalLayout {
-    //    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
     PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class);
-    TextField filterText = new TextField(); // поле для фільтрації сувенірів
 
-    DatePicker dateFrom = new DatePicker("Date");
-    DatePicker dateTo = new DatePicker("Date");
 
- SouvenirForm form; // форма для редагування сувенірів
+    Toolbar toolbar = new Toolbar(this::updateList, this::addSouvenir); // панель інструментів
+
+
+    SouvenirForm form; // форма для редагування сувенірів
     CrmService service; // сервіс для роботи з базою даних
 
 
@@ -40,7 +40,7 @@ SouvenirsView extends VerticalLayout {
         configureGrid(); // налаштовуємо таблицю
         configureForm(); // налаштовуємо форму
 
-        add(getToolbar(), getContent()); // додаємо панель інструментів та контент на форму
+        add(toolbar, getContent()); // додаємо панель інструментів та контент на форму
         updateList(); // оновлюємо список сувенірів
         closeEditor(); // закриваємо редактор
     }
@@ -87,19 +87,6 @@ SouvenirsView extends VerticalLayout {
 
     }
 
-    private HorizontalLayout getToolbar() { // метод для отримання панелі інструментів
-        filterText.setPlaceholder("Find souvenir by name...");
-        filterText.setClearButtonVisible(true);
-        filterText.setValueChangeMode(ValueChangeMode.LAZY); // затримка перед викликом події
-        filterText.addValueChangeListener(e -> updateList());
-        Button addContactButton = new Button("Add souvenir");
-        addContactButton.addClickListener(click -> addSouvenir());
-
-        var toolbar = new HorizontalLayout(filterText, addContactButton);
-        toolbar.addClassName("toolbar");
-        return toolbar;
-    }
-
     public void editSouvenir(Souvenirs souvenir) { // метод для редагування сувеніру
         if (souvenir == null) {
             closeEditor();
@@ -122,6 +109,6 @@ SouvenirsView extends VerticalLayout {
     }
 
     private void updateList() { // метод для оновлення списку сувенірів
-        grid.setItems(service.findAllSouvenirs(filterText.getValue()));
+        grid.setItems(service.findAllSouvenirs(toolbar.filterByName.getValue()));
     }
 }
