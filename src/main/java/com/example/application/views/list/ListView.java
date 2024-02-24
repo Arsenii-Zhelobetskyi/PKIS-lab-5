@@ -3,7 +3,9 @@ package com.example.application.views.list;
 import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
+//import com.example.application.views.klaudeta.PaginatedGrid;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.charts.model.Bottom;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,14 +14,16 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-
+import org.vaadin.klaudeta.PaginatedGrid;
 /**
  * цей клас відображає список сувенірів у вигляді таблиці
  */
 @Route(value="", layout = MainLayout.class)
 @PageTitle("Souvenirs")
-public class ListView extends VerticalLayout {
-    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
+public class
+ListView extends VerticalLayout {
+//    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
+    PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class);
     TextField filterText = new TextField(); // поле для фільтрації сувенірів
     SouvenirForm form; // форма для редагування сувенірів
     CrmService service; // сервіс для роботи з базою даних
@@ -38,7 +42,7 @@ public class ListView extends VerticalLayout {
     }
 
     private HorizontalLayout getContent() { // метод для отримання контенту
-        HorizontalLayout content = new HorizontalLayout(grid, form);
+        HorizontalLayout content = new HorizontalLayout(configureGrid(), form);
         content.setFlexGrow(2, grid);
         content.setFlexGrow(1, form);
         content.addClassNames("content");
@@ -64,14 +68,22 @@ public class ListView extends VerticalLayout {
         updateList();
         closeEditor();
     }
-    private void configureGrid() { // метод для налаштування таблиці
+    private VerticalLayout configureGrid() { // метод для налаштування таблиці
+        VerticalLayout content = new VerticalLayout(grid);
         grid.addClassNames("souvenirs-grid");
         grid.setSizeFull();
         grid.setColumns("id", "name", "manufacturer_s_details", "date", "price");
+//        grid.addColumn(Address::getId).setHeader("Name");
+
+        grid.setPageSize(10);
+        grid.setPaginatorSize(5);
+
+
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->
                 editSouvenir(event.getValue()));
+        return content;
     }
 
     private HorizontalLayout getToolbar() { // метод для отримання панелі інструментів

@@ -28,7 +28,7 @@ public class DashboardView extends VerticalLayout {
     }
 
     private Component getContactStats() {
-        Span stats = new Span(service.countSouvenirs() + " contacts");
+        Span stats = new Span(service.countSouvenirs() + " souvenirs");
         stats.addClassNames(
                 LumoUtility.FontSize.XLARGE,
                 LumoUtility.Margin.Top.MEDIUM);
