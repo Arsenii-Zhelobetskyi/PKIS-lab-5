@@ -1,13 +1,13 @@
 package com.example.application.views;
 
-import com.example.application.views.list.ListView;
+import com.example.application.views.manufacturers.ManufacturersView;
+import com.example.application.views.souvenirs.SouvenirsView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
@@ -38,7 +38,7 @@ public class MainLayout extends AppLayout { // AppLayout це макет Vaadin 
 
     private void createDrawer() {
         addToDrawer(new VerticalLayout(
-                new RouterLink("List", ListView.class)//Створює RouterLink із текстом "List" і ListView.class як ціль посилання
+                new RouterLink("List", SouvenirsView.class)//Створює RouterLink із текстом "List" і ListView.class як ціль посилання
                 , new RouterLink("Manufacturers", ManufacturersView.class),
 
         new RouterLink("Dashboard", DashboardView.class)

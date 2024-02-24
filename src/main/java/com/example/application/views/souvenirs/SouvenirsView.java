@@ -1,19 +1,18 @@
-package com.example.application.views.list;
+package com.example.application.views.souvenirs;
 
 import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
 //import com.example.application.views.klaudeta.PaginatedGrid;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.charts.model.Bottom;
-import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
+import     com.example.application.views.list.SouvenirForm;
 import org.vaadin.klaudeta.PaginatedGrid;
 
 /**
@@ -22,15 +21,19 @@ import org.vaadin.klaudeta.PaginatedGrid;
 @Route(value = "", layout = MainLayout.class)
 @PageTitle("Souvenirs")
 public class
-ListView extends VerticalLayout {
+SouvenirsView extends VerticalLayout {
     //    Grid<Souvenirs> grid = new Grid<>(Souvenirs.class); // таблиця для відображення сувенірів
     PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class);
     TextField filterText = new TextField(); // поле для фільтрації сувенірів
-    SouvenirForm form; // форма для редагування сувенірів
+
+    DatePicker dateFrom = new DatePicker("Date");
+    DatePicker dateTo = new DatePicker("Date");
+
+ SouvenirForm form; // форма для редагування сувенірів
     CrmService service; // сервіс для роботи з базою даних
 
 
-    public ListView(CrmService service) { // конструктор класу
+    public SouvenirsView(CrmService service) { // конструктор класу
         this.service = service;
         addClassName("list-view");
         setSizeFull(); // встановлюємо розмір вікна на весь екран

@@ -40,6 +40,16 @@ public class CrmService {
         }
     }
 
+    public void saveManufacturer(Manufacturers manufacturer) { // метод для збереження сувеніру
+        if (manufacturer == null) {
+            System.err.println("Сувеныр пустий. Ви впевнені, що хочете створити пустий сувенір?");
+            return;
+        }
+        manufacturersRepository.save(manufacturer);
+    }
+    public void deleteManufacturer(Manufacturers manufacturer) {
+        manufacturersRepository.delete(manufacturer);
+    } // метод для видалення сувеніру
 
 
     // SOUVENIRS
