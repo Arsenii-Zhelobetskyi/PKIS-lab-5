@@ -106,6 +106,6 @@ SouvenirsView extends VerticalLayout {
     }
 
     private void updateList() { // метод для оновлення списку сувенірів
-        grid.setItems(service.findAllSouvenirs(toolbar.searchByName.getValue()));
+        grid.setItems(service.getSouvenirs());
     }
 }

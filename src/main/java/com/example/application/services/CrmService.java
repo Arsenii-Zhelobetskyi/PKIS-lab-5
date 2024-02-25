@@ -7,8 +7,8 @@ import com.example.application.data.SouvenirsRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Сервіс для роботи з базою даних. Це потрібно, щоб ми не взаємодіяли з базою даних напряму з класів-контролерів.
@@ -55,25 +55,28 @@ public class CrmService {
 
 
     // SOUVENIRS
-    public long countSouvenirs() { // метод для підрахунку кількості сувенірів
-        return souvenirsRepository.count();
+    public List<Souvenirs> getSouvenirs() { // метод для пошуку всіх сувенірів
+            return souvenirsRepository.findAll();
     }
 
-    public List<Souvenirs> findAllSouvenirs(String stringFilter) { // метод для пошуку всіх сувенірів
-        if (stringFilter == null || stringFilter.isEmpty()) {
-            return souvenirsRepository.findAll();
-            
-        } else {
-            return souvenirsRepository.search(stringFilter);
-        }
+    public List<Souvenirs> searchByField(String field, String value){
+
+        System.out.println("field: " + field + " value: " + value + " " + value.isEmpty());
+        if (field.equals("name") && value != null && !value.isEmpty())
+            return souvenirsRepository.searchByName(value);
+        else if (field.equals("id") && value != null && !value.isEmpty())
+            return souvenirsRepository.searchById(value);
+        else
+            return getSouvenirs();
     }
 
     public  List<Souvenirs> searchByDateRange(LocalDate start, LocalDate end) {
         return souvenirsRepository.searchByDateRange(start, end);
     }
-    public void deleteSouvenir(Souvenirs souvenir) {
-        souvenirsRepository.delete(souvenir);
-    } // метод для видалення сувеніру
+
+
+
+
 
     public void saveSouvenir(Souvenirs souvenir) { // метод для збереження сувеніру
         if (souvenir == null) {
@@ -81,5 +84,16 @@ public class CrmService {
             return;
         }
         souvenirsRepository.save(souvenir);
+    }
+
+    public void deleteSouvenir(Souvenirs souvenir) {
+        souvenirsRepository.delete(souvenir);
+    } // метод для видалення сувеніру
+
+
+
+
+    public long countSouvenirs() { // метод для підрахунку кількості сувенірів
+        return souvenirsRepository.count();
     }
 }

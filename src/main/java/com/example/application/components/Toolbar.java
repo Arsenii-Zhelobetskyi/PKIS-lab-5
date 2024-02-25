@@ -17,11 +17,21 @@ public class Toolbar extends HorizontalLayout {
     Button addSouvenir;
 
 
+    PaginatedGrid<Souvenirs, String> grid;
+    CrmService service;
+
+
+
     public Toolbar(PaginatedGrid<Souvenirs, String> grid, CrmService service, Runnable updateList, Runnable addSouvenirFunc) {
+
+        this.grid=grid;
+        this.service=service;
+
+
         addClassName("toolbar");
 
-        searchById = configureTextField(searchByName, "Find by id", "0152a491", updateList);
-        searchByName = configureTextField(searchByName, "Find by name", "Alaska magnet", updateList);
+        searchById = configureTextField(searchById, "Find by id", "0152a491", "id");
+        searchByName = configureTextField(searchByName, "Find by name", "Alaska magnet", "name");
 
         myDatePicker = new MyDatePicker(grid, service);
 
@@ -33,7 +43,7 @@ public class Toolbar extends HorizontalLayout {
     }
 
 
-    TextField configureTextField(TextField field, String label, String placeHolder, Runnable onChange) {
+    TextField configureTextField(TextField field, String label, String placeHolder, String fieldName) {
         field = new TextField();
 
         field.setLabel(label);
@@ -41,7 +51,8 @@ public class Toolbar extends HorizontalLayout {
         field.setClearButtonVisible(true);
         field.setValueChangeMode(ValueChangeMode.LAZY); // затримка перед викликом події
 
-        field.addValueChangeListener(e -> onChange.run());
+        TextField finalField = field;
+        field.addValueChangeListener(e -> grid.setItems(service.searchByField(fieldName, finalField.getValue())));
         return field;
     }
 }
