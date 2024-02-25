@@ -1,9 +1,12 @@
 package com.example.application.views.manufacturers;
 
 import com.example.application.data.Manufacturers;
+import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.manufacturers.components.ManufacturerForm;
+import com.example.application.views.manufacturers.components.MyToolbar;
+import com.example.application.views.souvenirs.components.Toolbar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -17,15 +20,18 @@ public class ManufacturersView extends VerticalLayout {
 
     PaginatedGrid<Manufacturers, String> grid = new PaginatedGrid<>(Manufacturers.class);
     ManufacturerForm form;
+    MyToolbar toolbar;
 
     public  ManufacturersView(CrmService service) { // конструктор класу
         this.service = service;
         addClassName("list-view");
+        toolbar=new MyToolbar(grid,service, this::addManufacturer); // панель інструментів
+
         setSizeFull(); // встановлюємо розмір вікна на весь екран
         configureGrid(); // налаштовуємо таблицю
         configureForm(); // налаштовуємо форму
 
-        add(getContent());
+        add(toolbar,getContent());
         updateList(); // оновлюємо список сувенірів
         closeEditor(); // закриваємо редактор
 
@@ -52,7 +58,6 @@ public class ManufacturersView extends VerticalLayout {
     }
 
     private void updateList() { // метод для оновлення списку сувенірів
-//        grid.setItems(service.findAllManufacturers(filterText.getValue()));
         grid.setItems(service.findAllManufacturers(""));
     }
     private void configureForm() { // метод для налаштування форми
@@ -87,7 +92,10 @@ public class ManufacturersView extends VerticalLayout {
         form.setVisible(false);
         removeClassName("editing");
     }
-
+    private void addManufacturer() { // метод для додавання сувеніру
+        grid.asSingleSelect().clear();
+        editManufacturer(new Manufacturers());
+    }
 
 }
 

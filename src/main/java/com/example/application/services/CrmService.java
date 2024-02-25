@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Сервіс для роботи з базою даних. Це потрібно, щоб ми не взаємодіяли з базою даних напряму з класів-контролерів.
@@ -41,6 +40,19 @@ public class CrmService {
             return manufacturersRepository.search(stringFilter);
         }
     }
+    public List<Manufacturers> searchManufacturersByField(String field, String value){
+
+        System.out.println("field: " + field + " value: " + value + " " + value.isEmpty());
+        if (field.equals("name") && value != null && !value.isEmpty())
+            return manufacturersRepository.searchByName(value);
+        else if (field.equals("id") && value != null && !value.isEmpty())
+            return manufacturersRepository.searchById(value);
+        else if (field.equals("country") && value != null && !value.isEmpty())
+            return manufacturersRepository.searchByCountry(value);
+        else
+            return findAllManufacturers("");
+    }
+
 
     public void saveManufacturer(Manufacturers manufacturer) { // метод для збереження сувеніру
         if (manufacturer == null) {
@@ -59,7 +71,7 @@ public class CrmService {
             return souvenirsRepository.findAll();
     }
 
-    public List<Souvenirs> searchByField(String field, String value){
+    public List<Souvenirs> searchSouvenirsByField(String field, String value){
 
         System.out.println("field: " + field + " value: " + value + " " + value.isEmpty());
         if (field.equals("name") && value != null && !value.isEmpty())

@@ -54,7 +54,7 @@ public class Toolbar extends HorizontalLayout {
         field.setValueChangeMode(ValueChangeMode.LAZY); // затримка перед викликом події
 
         TextField finalField = field;
-        field.addValueChangeListener(e -> grid.setItems(service.searchByField(fieldName, finalField.getValue())));
+        field.addValueChangeListener(e -> grid.setItems(service.searchSouvenirsByField(fieldName, finalField.getValue())));
         return field;
     }
 }
