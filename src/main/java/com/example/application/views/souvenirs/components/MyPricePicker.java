@@ -25,6 +25,9 @@ public class MyPricePicker extends HorizontalLayout {
         setDollarSign(end);
 
         start.addValueChangeListener(e -> {
+            if (start.getValue()==null || end.getValue()==null) { // якщо обидва значення пусті
+                grid.setItems(service.getSouvenirs()); // відображаємо всі сувеніри, що підходять під критерії
+            }
 
             if (end.getValue() != null) {
                 grid.setItems(service.searchByPriceRange(start.getValue(), end.getValue()));
@@ -33,6 +36,10 @@ public class MyPricePicker extends HorizontalLayout {
         });
 
         end.addValueChangeListener(e -> { // встановлюємо обробник події для поля введення
+            if (start.getValue()==null || end.getValue()==null) { // якщо обидва значення пусті
+                grid.setItems(service.getSouvenirs()); // відображаємо всі сувеніри, що підходять під критерії
+            }
+
             if (start.getValue() != null) {
                 grid.setItems(service.searchByPriceRange(start.getValue(), end.getValue()));
             }

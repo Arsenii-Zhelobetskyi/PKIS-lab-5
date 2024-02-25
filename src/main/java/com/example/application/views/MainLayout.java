@@ -41,7 +41,7 @@ public class MainLayout extends AppLayout { // AppLayout це макет Vaadin 
 
     private void createDrawer() {
         addToDrawer(new VerticalLayout(
-                new RouterLink("List", SouvenirsView.class)//Створює RouterLink із текстом "List" і ListView.class як ціль посилання
+                new RouterLink("Souvenirs", SouvenirsView.class)//Створює RouterLink із текстом "List" і ListView.class як ціль посилання
                 , new RouterLink("Manufacturers", ManufacturersView.class),
 
         new RouterLink("Dashboard", DashboardView.class)
