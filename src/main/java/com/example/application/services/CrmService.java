@@ -6,6 +6,8 @@ import com.example.application.data.Souvenirs;
 import com.example.application.data.SouvenirsRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,9 +62,14 @@ public class CrmService {
     public List<Souvenirs> findAllSouvenirs(String stringFilter) { // метод для пошуку всіх сувенірів
         if (stringFilter == null || stringFilter.isEmpty()) {
             return souvenirsRepository.findAll();
+            
         } else {
             return souvenirsRepository.search(stringFilter);
         }
+    }
+
+    public  List<Souvenirs> searchByDateRange(LocalDate start, LocalDate end) {
+        return souvenirsRepository.searchByDateRange(start, end);
     }
     public void deleteSouvenir(Souvenirs souvenir) {
         souvenirsRepository.delete(souvenir);
@@ -70,7 +77,7 @@ public class CrmService {
 
     public void saveSouvenir(Souvenirs souvenir) { // метод для збереження сувеніру
         if (souvenir == null) {
-            System.err.println("Сувеныр пустий. Ви впевнені, що хочете створити пустий сувенір?");
+            System.err.println("Сувенір пустий. Ви впевнені, що хочете створити пустий сувенір?");
             return;
         }
         souvenirsRepository.save(souvenir);

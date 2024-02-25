@@ -1,18 +1,17 @@
 package com.example.application.views.souvenirs;
 
+import com.example.application.components.Toolbar;
 import com.example.application.data.Souvenirs;
+
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
 //import com.example.application.views.klaudeta.PaginatedGrid;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.example.application.views.list.SouvenirForm;
+import com.vaadin.flow.server.VaadinSession;
 import org.vaadin.klaudeta.PaginatedGrid;
 
 
@@ -24,17 +23,15 @@ import org.vaadin.klaudeta.PaginatedGrid;
 public class
 SouvenirsView extends VerticalLayout {
     PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class);
-
-
-    Toolbar toolbar = new Toolbar(this::updateList, this::addSouvenir); // панель інструментів
-
-
     SouvenirForm form; // форма для редагування сувенірів
     CrmService service; // сервіс для роботи з базою даних
+    Toolbar toolbar;
 
 
     public SouvenirsView(CrmService service) { // конструктор класу
         this.service = service;
+        toolbar=new Toolbar(grid,service,this::updateList, this::addSouvenir); // панель інструментів
+        VaadinSession.getCurrent().setAttribute("service",service);
         addClassName("list-view");
         setSizeFull(); // встановлюємо розмір вікна на весь екран
         configureGrid(); // налаштовуємо таблицю
@@ -109,6 +106,6 @@ SouvenirsView extends VerticalLayout {
     }
 
     private void updateList() { // метод для оновлення списку сувенірів
-        grid.setItems(service.findAllSouvenirs(toolbar.filterByName.getValue()));
+        grid.setItems(service.findAllSouvenirs(toolbar.searchByName.getValue()));
     }
 }

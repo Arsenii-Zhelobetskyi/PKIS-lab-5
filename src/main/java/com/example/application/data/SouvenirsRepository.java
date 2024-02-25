@@ -1,10 +1,13 @@
 package com.example.application.data;
 
 
+import org.springframework.boot.context.config.InactiveConfigDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,4 +26,10 @@ public interface SouvenirsRepository extends JpaRepository<Souvenirs, String> {
     @Query("select c from Souvenirs c " +
             "where lower(c.name) like lower(concat('%', :searchTerm, '%')) ")
     List<Souvenirs> search(@Param("searchTerm") String searchTerm);
+
+
+    // query to search in range of dates
+    @Query("SELECT c FROM Souvenirs c WHERE c.date BETWEEN :startDate AND :endDate")
+    List<Souvenirs> searchByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 }

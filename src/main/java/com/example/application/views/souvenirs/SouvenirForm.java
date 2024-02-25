@@ -18,6 +18,8 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
 
+import java.util.Locale;
+
 /**
  * Форма для редагування сувенірів. Цей клас використовується для відображення форми для редагування сувенірів.
  * Вона містить поля для введення даних про сувенір, такі як назва, виробник, дата виготовлення та ціна.
@@ -45,7 +47,8 @@ public class SouvenirForm extends FormLayout {
         // Встановлюємо плейсхолдери для полів вводу
         name.setPlaceholder("Alaska magnet");
         manufacturer_s_details.setPlaceholder("Alaska souvenirs id");
-        date.setPlaceholder("2021-01-01");
+        date.setPlaceholder("01.01.2021");
+        date.setLocale(new Locale("uk", "UA"));
         price.setPlaceholder("100");
 
         // Додамо значок долара перед полем вводу ціни
