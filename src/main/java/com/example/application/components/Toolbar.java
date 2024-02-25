@@ -14,6 +14,8 @@ public class Toolbar extends HorizontalLayout {
     public TextField searchByName;
 
     MyDatePicker myDatePicker;
+
+    MyPricePicker myPricePicker;
     Button addSouvenir;
 
 
@@ -21,11 +23,10 @@ public class Toolbar extends HorizontalLayout {
     CrmService service;
 
 
-
     public Toolbar(PaginatedGrid<Souvenirs, String> grid, CrmService service, Runnable updateList, Runnable addSouvenirFunc) {
 
-        this.grid=grid;
-        this.service=service;
+        this.grid = grid;
+        this.service = service;
 
 
         addClassName("toolbar");
@@ -34,12 +35,13 @@ public class Toolbar extends HorizontalLayout {
         searchByName = configureTextField(searchByName, "Find by name", "Alaska magnet", "name");
 
         myDatePicker = new MyDatePicker(grid, service);
+        myPricePicker = new MyPricePicker(grid, service);
 
         addSouvenir = new Button("Add souvenir");
         addSouvenir.addClickListener(click -> addSouvenirFunc.run());
 
         setAlignItems(Alignment.BASELINE);
-        add(searchById, searchByName, myDatePicker, addSouvenir);
+        add(searchById, searchByName, myDatePicker, myPricePicker, addSouvenir);
     }
 
 

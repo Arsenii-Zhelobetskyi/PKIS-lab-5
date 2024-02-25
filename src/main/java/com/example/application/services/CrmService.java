@@ -70,6 +70,10 @@ public class CrmService {
             return getSouvenirs();
     }
 
+    public  List<Souvenirs> searchByPriceRange(double start, double end) {
+        return souvenirsRepository.searchByPriceRange(start, end);
+    }
+
     public  List<Souvenirs> searchByDateRange(LocalDate start, LocalDate end) {
         return souvenirsRepository.searchByDateRange(start, end);
     }

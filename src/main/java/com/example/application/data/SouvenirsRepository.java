@@ -35,4 +35,7 @@ public interface SouvenirsRepository extends JpaRepository<Souvenirs, String> {
     @Query("SELECT c FROM Souvenirs c WHERE c.date BETWEEN :startDate AND :endDate")
     List<Souvenirs> searchByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    @Query("SELECT c FROM Souvenirs c WHERE c.price BETWEEN :startPrice AND :endPrice")
+    List<Souvenirs> searchByPriceRange(@Param("startPrice") double startPrice, @Param("endPrice") double endPrice);
+
 }
