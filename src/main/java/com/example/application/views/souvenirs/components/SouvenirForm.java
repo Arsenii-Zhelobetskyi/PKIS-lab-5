@@ -1,4 +1,4 @@
-package com.example.application.views.list;
+package com.example.application.views.souvenirs.components;
 
 import com.example.application.data.Souvenirs;
 //import com.example.application.data.Status;

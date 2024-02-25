@@ -1,6 +1,6 @@
 package com.example.application.views.souvenirs;
 
-import com.example.application.components.Toolbar;
+import com.example.application.views.souvenirs.components.Toolbar;
 import com.example.application.data.Souvenirs;
 
 import com.example.application.services.CrmService;
@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.example.application.views.list.SouvenirForm;
+import com.example.application.views.souvenirs.components.SouvenirForm;
 import com.vaadin.flow.server.VaadinSession;
 import org.vaadin.klaudeta.PaginatedGrid;
 
@@ -30,7 +30,7 @@ SouvenirsView extends VerticalLayout {
 
     public SouvenirsView(CrmService service) { // конструктор класу
         this.service = service;
-        toolbar=new Toolbar(grid,service,this::updateList, this::addSouvenir); // панель інструментів
+        toolbar=new Toolbar(grid,service, this::addSouvenir); // панель інструментів
         VaadinSession.getCurrent().setAttribute("service",service);
         addClassName("list-view");
         setSizeFull(); // встановлюємо розмір вікна на весь екран

@@ -1,11 +1,9 @@
 package com.example.application.views.manufacturers;
 
 import com.example.application.data.Manufacturers;
-import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
-import com.example.application.views.manufacturers.ManufacturerForm;
-import com.vaadin.flow.component.grid.Grid;
+import com.example.application.views.manufacturers.components.ManufacturerForm;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;

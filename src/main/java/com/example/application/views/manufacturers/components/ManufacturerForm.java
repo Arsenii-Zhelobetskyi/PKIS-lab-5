@@ -1,4 +1,4 @@
-package com.example.application.views.manufacturers;
+package com.example.application.views.manufacturers.components;
 
 import com.example.application.data.Manufacturers;
 import com.vaadin.flow.component.Component;

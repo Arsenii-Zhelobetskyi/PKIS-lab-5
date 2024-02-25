@@ -1,4 +1,4 @@
-package com.example.application.components;
+package com.example.application.views.souvenirs.components;
 
 import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
@@ -23,7 +23,7 @@ public class Toolbar extends HorizontalLayout {
     CrmService service;
 
 
-    public Toolbar(PaginatedGrid<Souvenirs, String> grid, CrmService service, Runnable updateList, Runnable addSouvenirFunc) {
+    public Toolbar(PaginatedGrid<Souvenirs, String> grid, CrmService service, Runnable addSouvenirFunc) {
 
         this.grid = grid;
         this.service = service;
