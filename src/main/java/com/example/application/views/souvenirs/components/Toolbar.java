@@ -9,6 +9,9 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.vaadin.klaudeta.PaginatedGrid;
 
 
+/**
+ * цей клас відображає панель інструментів для пошуку сувенірів
+ */
 public class Toolbar extends HorizontalLayout {
     public TextField searchById;
     public TextField searchByName;
@@ -45,7 +48,7 @@ public class Toolbar extends HorizontalLayout {
     }
 
 
-    TextField configureTextField(TextField field, String label, String placeHolder, String fieldName) {
+    TextField configureTextField(TextField field, String label, String placeHolder, String fieldName) { // метод для налаштування текстового поля
         field = new TextField();
 
         field.setLabel(label);

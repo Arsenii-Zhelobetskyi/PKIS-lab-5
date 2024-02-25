@@ -6,24 +6,22 @@ import com.example.application.data.Souvenirs;
 
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
-//import com.example.application.views.klaudeta.PaginatedGrid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.example.application.views.souvenirs.components.SouvenirForm;
-import com.vaadin.flow.server.VaadinSession;
 import org.vaadin.klaudeta.PaginatedGrid;
 
 
 /**
- * цей клас відображає список сувенірів у вигляді таблиці
+ * Цей клас відображає список сувенірів у вигляді таблиці
  */
 @Route(value = "", layout = MainLayout.class)
 @PageTitle("Souvenirs")
 public class
 SouvenirsView extends VerticalLayout {
-    PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class);
+    PaginatedGrid<Souvenirs, String> grid = new PaginatedGrid<>(Souvenirs.class); // таблиця для відображення сувенірів
     SouvenirForm form; // форма для редагування сувенірів
     CrmService service; // сервіс для роботи з базою даних
     Toolbar toolbar;
@@ -32,7 +30,6 @@ SouvenirsView extends VerticalLayout {
     public SouvenirsView(CrmService service) { // конструктор класу
         this.service = service;
         toolbar=new Toolbar(grid,service, this::addSouvenir); // панель інструментів
-        VaadinSession.getCurrent().setAttribute("service",service);
         addClassName("list-view");
         setSizeFull(); // встановлюємо розмір вікна на весь екран
 
@@ -109,5 +106,5 @@ SouvenirsView extends VerticalLayout {
 
     private void updateList() { // метод для оновлення списку сувенірів
         grid.setItems(service.getSouvenirs());
-    }
+    } // метод для оновлення списку сувенірів
 }

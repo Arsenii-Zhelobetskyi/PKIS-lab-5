@@ -8,6 +8,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.vaadin.klaudeta.PaginatedGrid;
 
+/**
+ * цей клас відображає панель інструментів для пошуку виробників
+ */
 public class MyToolbar extends HorizontalLayout {
     public TextField searchById;
     public TextField searchByName;

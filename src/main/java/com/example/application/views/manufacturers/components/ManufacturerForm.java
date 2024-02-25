@@ -17,6 +17,13 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.shared.Registration;
 
+/**
+ * Форма для редагування виробників. Цей клас використовується для відображення форми для редагування виробників.
+ * Вона містить поля для введення даних про виробника, такі як назва, країна, опис, електронна пошта та веб-сайт.
+ * Також вона містить кнопки для збереження, видалення та закриття форми.
+ * <p>
+ * Ця форма автоматично валідує введені дані та відображає помилки, якщо такі є. Та також вона автоматично зберігає введені дані в об'єкт Manufacturers.
+ */
 public class ManufacturerForm extends FormLayout{
 TextField name = new TextField("Manufacturer name");
 TextField country = new TextField("Country");

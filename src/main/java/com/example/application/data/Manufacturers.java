@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.Formula;
+
+/**
+ * цей клас відображає виробників сувенірів
+ */
 @Entity
 public class Manufacturers extends  AbstractEntity{
     @NotEmpty
@@ -60,9 +64,9 @@ public class Manufacturers extends  AbstractEntity{
     public String getDescription() {
         return description;
     }
-    @Formula("(select count(c.id) from Souvenirs c where c.manufacturer_s_details = id)")
-    private int manufacturerCount;
-    public int getManufacturerCount(){
-        return manufacturerCount;
+    @Formula("(select count(c.id) from Souvenirs c where c.manufacturer_s_details = id)") // підрахунок кількості сувенірів виробника
+    private int souvenirsCountByManufacturer;
+    public int getSouvenirsCount(){
+        return souvenirsCountByManufacturer;
     }
 }

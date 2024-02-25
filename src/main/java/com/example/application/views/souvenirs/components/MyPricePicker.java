@@ -8,6 +8,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import org.vaadin.klaudeta.PaginatedGrid;
 
+/**
+ * цей клас відображає панель для вибору ціни
+ */
 public class MyPricePicker extends HorizontalLayout {
 
     NumberField start = new NumberField("From");
@@ -29,14 +32,14 @@ public class MyPricePicker extends HorizontalLayout {
 
         });
 
-        end.addValueChangeListener(e -> {
+        end.addValueChangeListener(e -> { // встановлюємо обробник події для поля введення
             if (start.getValue() != null) {
                 grid.setItems(service.searchByPriceRange(start.getValue(), end.getValue()));
             }
         });
     }
 
-    void setDollarSign(NumberField field){
+    void setDollarSign(NumberField field){ // метод для встановлення знаку долара
         Div dollarPrefix= new Div();
         dollarPrefix.setText("$");
         field.setPrefixComponent(dollarPrefix);

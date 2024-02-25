@@ -64,7 +64,7 @@ public class SouvenirForm extends FormLayout {
                 createButtonsLayout());
     }
 
-    private Component createButtonsLayout() {
+    private Component createButtonsLayout() { // метод для створення кнопок
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);

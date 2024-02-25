@@ -11,6 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
+/**
+ * Цей клас відображає головний макет сторінки
+ */
 public class MainLayout extends AppLayout { // AppLayout це макет Vaadin із заголовком і адаптивною висувною панеллю.
 
     public MainLayout() {

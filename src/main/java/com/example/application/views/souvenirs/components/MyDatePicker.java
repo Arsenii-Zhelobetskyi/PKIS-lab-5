@@ -11,6 +11,9 @@ import org.vaadin.klaudeta.PaginatedGrid;
 import java.util.Locale;
 
 
+/**
+ * цей клас відображає панель для вибору дати
+ */
 public class MyDatePicker extends HorizontalLayout  {
 
     DatePicker start = new DatePicker("From");
@@ -26,12 +29,13 @@ public class MyDatePicker extends HorizontalLayout  {
         end.setPlaceholder("01.01.2024");
         start.setLocale(new Locale("uk", "UA"));
         end.setLocale(new Locale("uk", "UA"));
+
         start.addValueChangeListener(e -> {
-            if (start.getValue()==null && end.getValue()==null) {
-                grid.setItems(service.getSouvenirs());
+            if (start.getValue()==null && end.getValue()==null) { // якщо обидва значення пусті
+                grid.setItems(service.getSouvenirs()); // відображаємо всі сувеніри, що підходять під критерії
             }
 
-            if (end.getValue() != null) {
+            if (end.getValue() != null) { // якщо значення не пусті
                 grid.setItems(service.searchByDateRange(start.getValue(), end.getValue()));
             }
 

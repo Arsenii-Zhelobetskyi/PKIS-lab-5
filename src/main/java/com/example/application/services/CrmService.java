@@ -40,7 +40,7 @@ public class CrmService {
             return manufacturersRepository.search(stringFilter);
         }
     }
-    public List<Manufacturers> searchManufacturersByField(String field, String value){
+    public List<Manufacturers> searchManufacturersByField(String field, String value){ // метод для пошуку виробників за певним полем
 
         System.out.println("field: " + field + " value: " + value + " " + value.isEmpty());
         if (field.equals("name") && value != null && !value.isEmpty())
@@ -54,14 +54,14 @@ public class CrmService {
     }
 
 
-    public void saveManufacturer(Manufacturers manufacturer) { // метод для збереження сувеніру
+    public void saveManufacturer(Manufacturers manufacturer) { // метод для збереження сувеніру в базі даних
         if (manufacturer == null) {
             System.err.println("Сувеныр пустий. Ви впевнені, що хочете створити пустий сувенір?");
             return;
         }
         manufacturersRepository.save(manufacturer);
     }
-    public void deleteManufacturer(Manufacturers manufacturer) {
+    public void deleteManufacturer(Manufacturers manufacturer) { // метод для видалення сувеніру з бази даних
         manufacturersRepository.delete(manufacturer);
     } // метод для видалення сувеніру
 
@@ -69,9 +69,9 @@ public class CrmService {
     // SOUVENIRS
     public List<Souvenirs> getSouvenirs() { // метод для пошуку всіх сувенірів
             return souvenirsRepository.findAll();
-    }
+    } // метод для пошуку всіх сувенірів
 
-    public List<Souvenirs> searchSouvenirsByField(String field, String value){
+    public List<Souvenirs> searchSouvenirsByField(String field, String value){ // метод для пошуку сувенірів за певним полем
 
         System.out.println("field: " + field + " value: " + value + " " + value.isEmpty());
         if (field.equals("name") && value != null && !value.isEmpty())
@@ -82,11 +82,11 @@ public class CrmService {
             return getSouvenirs();
     }
 
-    public  List<Souvenirs> searchByPriceRange(double start, double end) {
+    public  List<Souvenirs> searchByPriceRange(double start, double end) { // метод для пошуку сувенірів за ціновим діапазоном
         return souvenirsRepository.searchByPriceRange(start, end);
     }
 
-    public  List<Souvenirs> searchByDateRange(LocalDate start, LocalDate end) {
+    public  List<Souvenirs> searchByDateRange(LocalDate start, LocalDate end) {     // метод для пошуку сувенірів за діапазоном дат
         return souvenirsRepository.searchByDateRange(start, end);
     }
 
@@ -102,7 +102,7 @@ public class CrmService {
         souvenirsRepository.save(souvenir);
     }
 
-    public void deleteSouvenir(Souvenirs souvenir) {
+    public void deleteSouvenir(Souvenirs souvenir) { // метод для видалення сувеніру
         souvenirsRepository.delete(souvenir);
     } // метод для видалення сувеніру
 
@@ -111,5 +111,5 @@ public class CrmService {
 
     public long countSouvenirs() { // метод для підрахунку кількості сувенірів
         return souvenirsRepository.count();
-    }
+    } // метод для підрахунку кількості сувенірів
 }

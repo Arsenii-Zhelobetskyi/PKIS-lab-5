@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 /**
- * Цей клас відображає статистику контактів та компаній у вигляді графіків
+ * Цей клас відображає статистику того скільки існує виробників та сувенірів
  */
 @Route(value = "dashboard", layout = MainLayout.class)
 @PageTitle("Dashboard")
@@ -24,10 +24,10 @@ public class DashboardView extends VerticalLayout {
         this.service = service;
         addClassName("dashboard-view");
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-        add(getContactStats(), getCompaniesChart());
+        add(getSouvenirsStats(), getCompaniesChart());
     }
 
-    private Component getContactStats() {
+    private Component getSouvenirsStats() {
         Span stats = new Span(service.countSouvenirs() + " souvenirs");
         stats.addClassNames(
                 LumoUtility.FontSize.XLARGE,
@@ -39,8 +39,9 @@ public class DashboardView extends VerticalLayout {
         Chart chart = new Chart(ChartType.PIE);
 
         DataSeries dataSeries = new DataSeries();
+        // виводимо кількість виробників на графіку
         service.findAllManufacturers("").forEach(manufacturer ->
-                dataSeries.add(new DataSeriesItem(manufacturer.getName(), manufacturer.getManufacturerCount())));
+                dataSeries.add(new DataSeriesItem(manufacturer.getName(), manufacturer.getSouvenirsCount())));
         chart.getConfiguration().setSeries(dataSeries);
         return chart;
     }

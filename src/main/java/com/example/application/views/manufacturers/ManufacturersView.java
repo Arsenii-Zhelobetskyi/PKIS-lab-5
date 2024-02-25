@@ -1,17 +1,19 @@
 package com.example.application.views.manufacturers;
 
 import com.example.application.data.Manufacturers;
-import com.example.application.data.Souvenirs;
 import com.example.application.services.CrmService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.manufacturers.components.ManufacturerForm;
 import com.example.application.views.manufacturers.components.MyToolbar;
-import com.example.application.views.souvenirs.components.Toolbar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.vaadin.klaudeta.PaginatedGrid;
+
+/**
+ * Цей клас відображає список виробників у вигляді таблиці
+ */
 
 @Route(value = "manufacturers", layout = MainLayout.class)
 @PageTitle("Manufacturers")
@@ -63,22 +65,22 @@ public class ManufacturersView extends VerticalLayout {
     private void configureForm() { // метод для налаштування форми
         form = new ManufacturerForm();
         form.setWidth("25em");
-        form.addSaveListener(this::saveSouvenir);
-        form.addDeleteListener(this::deleteSouvenir);
+        form.addSaveListener(this::saveManufacturer);
+        form.addDeleteListener(this::deleteManufacturer);
         form.addCloseListener(e -> closeEditor());
     }
-    private void saveSouvenir(ManufacturerForm.SaveEvent event) {  // метод для збереження сувеніру
+    private void saveManufacturer(ManufacturerForm.SaveEvent event) {  // метод для збереження
         service.saveManufacturer(event.getSouvenir());
         updateList();
         closeEditor();
     }
 
-    private void deleteSouvenir(ManufacturerForm.DeleteEvent event) { // метод для видалення сувеніру
+    private void deleteManufacturer(ManufacturerForm.DeleteEvent event) { // метод для видалення
         service.deleteManufacturer(event.getSouvenir());
         updateList();
         closeEditor();
     }
-    public void editManufacturer(Manufacturers manufacturer) { // метод для редагування сувеніру
+    public void editManufacturer(Manufacturers manufacturer) { // метод для редагування
         if (manufacturer == null) {
             closeEditor();
         } else {
@@ -92,7 +94,7 @@ public class ManufacturersView extends VerticalLayout {
         form.setVisible(false);
         removeClassName("editing");
     }
-    private void addManufacturer() { // метод для додавання сувеніру
+    private void addManufacturer() { // метод для додавання
         grid.asSingleSelect().clear();
         editManufacturer(new Manufacturers());
     }
