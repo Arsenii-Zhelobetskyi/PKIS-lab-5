@@ -1,5 +1,6 @@
 package com.example.application.views.souvenirs;
 
+import com.example.application.views.souvenirs.components.MyGrid;
 import com.example.application.views.souvenirs.components.Toolbar;
 import com.example.application.data.Souvenirs;
 
@@ -34,6 +35,7 @@ SouvenirsView extends VerticalLayout {
         VaadinSession.getCurrent().setAttribute("service",service);
         addClassName("list-view");
         setSizeFull(); // встановлюємо розмір вікна на весь екран
+
         configureGrid(); // налаштовуємо таблицю
         configureForm(); // налаштовуємо форму
 
